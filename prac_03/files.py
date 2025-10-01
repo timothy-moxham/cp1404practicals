@@ -21,3 +21,10 @@ with open("numbers.txt", "r") as in_file:
     second_number = int(in_file.readline())
 total = first_number + second_number
 print(total)
+
+# 4.
+with open("numbers.txt", "r") as in_file:
+    total = 0
+    for line in in_file:
+        total += int(line)
+    print(total)
