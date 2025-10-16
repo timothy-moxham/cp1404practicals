@@ -10,10 +10,8 @@ word_to_occurrence = {}
 text = input("Text: ")
 words = text.split(" ")
 for word in words:
-    if word not in word_to_occurrence:
-        word_to_occurrence[word] = 1
-    else:
-        word_to_occurrence[word] += 1
+    frequency = word_to_occurrence.get(word, 0)
+    word_to_occurrence[word] = frequency + 1
 
 max_length = max(len(word) for word in words)
 
