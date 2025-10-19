@@ -30,8 +30,7 @@ def process_records(records):
     champion_to_number_of_wins = {}
     countries_of_champions = set()
     for record in records:
-        frequency = champion_to_number_of_wins.get(record[2], 0)
-        champion_to_number_of_wins[record[2]] = frequency + 1
+        champion_to_number_of_wins[record[2]] = champion_to_number_of_wins.get(record[2], 0) + 1
         countries_of_champions.add(record[1])
     return champion_to_number_of_wins, countries_of_champions
 
