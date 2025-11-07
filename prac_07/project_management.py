@@ -4,11 +4,12 @@ Estimate: 60 minutes
 Actual:
 """
 
+import datetime
 from project import Project
 
 MENU = """- (L)oad projects
 - (S)ave projects
-- (D)Display projects
+- (D)isplay projects
 - (F)ilter projects by date
 - (A)dd new project
 - (U)pdate project
@@ -22,6 +23,7 @@ def main():
     filename = DEFAULT_FILE
     projects = load_projects(filename)
     print(f"Loaded {len(projects)} projects from {filename}")
+
     print(MENU)
     choice = input(">>> ").upper()
     while choice != "Q":
@@ -34,7 +36,7 @@ def main():
             save_projects(save_filename, projects)
             print(f"Saved {len(projects)} projects to {save_filename}")
         elif choice == "D":
-            pass
+            display_projects(projects)
         elif choice == "F":
             pass
         elif choice == "A":
@@ -44,6 +46,12 @@ def main():
         else:
             print("Invalid choice")
         choice = input(">>> ").upper()
+
+    choice = input(f"Would you like to save to {filename}? ").upper()
+    if choice == "Y":
+        save_projects(filename, projects)
+        print(f"Saved {len(projects)} projects to {filename}")
+    print("Thank you for using custom-built project management software.")
 
 
 def load_projects(file):
@@ -64,6 +72,19 @@ def save_projects(file, projects):
         for project in projects:
             print(f"{project.name}\t{project.start_date}\t{project.priority}\t{project.cost_estimate}\t"
                   f"{project.completion_percentage}", file=out_file)
+
+
+def display_projects(projects):
+    """..."""
+    incomplete_projects = sorted([project for project in projects if project.completion_percentage != 100])
+    print("Incomplete projects:")
+    for project in incomplete_projects:
+        print(" ", project)
+
+    completed_projects = sorted([project for project in projects if project.completion_percentage == 100])
+    print("Completed projects:")
+    for project in completed_projects:
+        print(" ", project)
 
 
 def get_valid_filename():
