@@ -1,8 +1,10 @@
 """
 
-Estimate: 60 minutes (start=08:40)
+Estimate: 60 minutes
 Actual:
 """
+
+from project import Project
 
 MENU = """- (L)oad projects
 - (S)ave projects
@@ -11,6 +13,7 @@ MENU = """- (L)oad projects
 - (A)dd new project
 - (U)pdate project
 - (Q)uit"""
+FILE = "projects.txt"
 
 
 def main():
@@ -34,6 +37,17 @@ def main():
         else:
             print("Invalid choice")
         choice = input(">>> ").upper()
+
+
+def load_projects(file):
+    """..."""
+    with open(file, "r") as in_file:
+        in_file.readline()
+        projects = []
+        for line in in_file:
+            project = line.strip().split("\t")
+            projects.append(Project(project[0], project[1], int(project[2]), float(project[3]), int(project[4])))
+        return projects
 
 
 main()
