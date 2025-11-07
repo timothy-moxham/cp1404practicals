@@ -22,3 +22,7 @@ class Project:
     def __lt__(self, other):
         """..."""
         return self.priority < other.priority
+
+    def __get__(self, other):
+        """..."""
+        return self.start_date >= other.start_date
