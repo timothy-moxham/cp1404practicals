@@ -4,7 +4,7 @@ Estimate: 60 minutes
 Actual:
 """
 
-import datetime
+from datetime import datetime
 from project import Project
 
 MENU = """- (L)oad projects
@@ -38,13 +38,14 @@ def main():
         elif choice == "D":
             display_projects(projects)
         elif choice == "F":
-            pass
+            filter_projects_by_date(projects)
         elif choice == "A":
             pass
         elif choice == "U":
             pass
         else:
             print("Invalid choice")
+        print(MENU)
         choice = input(">>> ").upper()
 
     choice = input(f"Would you like to save to {filename}? ").upper()
@@ -61,7 +62,9 @@ def load_projects(file):
         projects = []
         for line in in_file:
             project = line.strip().split("\t")
-            projects.append(Project(project[0], project[1], int(project[2]), float(project[3]), int(project[4])))
+            projects.append(
+                Project(project[0], datetime.strptime(project[1], "%d/%m/%Y").date(), int(project[2]),
+                        float(project[3]), int(project[4])))
         return projects
 
 
@@ -70,8 +73,8 @@ def save_projects(file, projects):
     with open(file, "w") as out_file:
         print("Name	Start Date\tPriority\tCost Estimate\tCompletion Percentage", file=out_file)
         for project in projects:
-            print(f"{project.name}\t{project.start_date}\t{project.priority}\t{project.cost_estimate}\t"
-                  f"{project.completion_percentage}", file=out_file)
+            print(f"{project.name}\t{project.start_date.strftime("%d/%m/%Y")}\t{project.priority}\t"
+                  f"{project.cost_estimate}\t{project.completion_percentage}", file=out_file)
 
 
 def display_projects(projects):
@@ -85,6 +88,28 @@ def display_projects(projects):
     print("Completed projects:")
     for project in completed_projects:
         print(" ", project)
+
+
+def filter_projects_by_date(projects):
+    """..."""
+    filter_date = get_valid_date()
+    filtered_projects = sorted([project for project in projects if project.start_date >= filter_date])
+
+    for project in filtered_projects:
+        print(project)
+
+
+def get_valid_date():
+    """..."""
+    is_valid_date = False
+    while not is_valid_date:
+        try:
+            date_string = input("Start date (dd/mm/yyyy): ")
+            date = datetime.strptime(date_string, "%d/%m/%Y").date()
+            is_valid_date = True
+        except ValueError:
+            print("Incorrect date format.")
+    return date
 
 
 def get_valid_filename():
