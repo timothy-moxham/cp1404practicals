@@ -43,7 +43,7 @@ def main():
             print("Let's add a new project")
             projects = add_new_project(projects)
         elif choice == "U":
-            pass
+            projects = update_project(projects)
         else:
             print("Invalid choice")
         print(MENU)
@@ -108,6 +108,26 @@ def add_new_project(projects):
     cost_estimate = get_valid_number("Cost estimate: $", 0, 1000000)
     completion_percentage = get_valid_number("Percentage complete: ", 0, 100)
     projects.append(Project(name, start_date, priority, cost_estimate, completion_percentage))
+    return projects
+
+
+def update_project(projects):
+    """..."""
+    for i, project in enumerate(projects):
+        print(i, project)
+    project_choice = int(input("Project choice: "))
+    project = projects[project_choice]
+    print(project)
+    try:
+        completion_percentage = int(input("New Percentage: "))
+    except:
+        completion_percentage = project.completion_percentage
+    try:
+        priority = int(input("New Priority: "))
+    except:
+        priority = project.priority
+    projects[project_choice] = Project(project.name, project.start_date, priority, project.cost_estimate,
+                                       completion_percentage)
     return projects
 
 
