@@ -40,7 +40,8 @@ def main():
         elif choice == "F":
             filter_projects_by_date(projects)
         elif choice == "A":
-            pass
+            print("Let's add a new project")
+            projects = add_new_project(projects)
         elif choice == "U":
             pass
         else:
@@ -99,6 +100,41 @@ def filter_projects_by_date(projects):
         print(project)
 
 
+def add_new_project(projects):
+    """..."""
+    name = get_valid_name()
+    start_date = get_valid_date()
+    priority = get_valid_number("Priority: ", 1, 9)
+    cost_estimate = get_valid_number("Cost estimate: $", 0, 1000000)
+    completion_percentage = get_valid_number("Percentage complete: ", 0, 100)
+    projects.append(Project(name, start_date, priority, cost_estimate, completion_percentage))
+    return projects
+
+
+def get_valid_number(prompt, minimum, maximum):
+    """..."""
+    is_valid_number = False
+    while not is_valid_number:
+        try:
+            number = int(input(prompt))
+            while not (maximum >= number >= minimum):
+                print(f"Number must be between {minimum} and {maximum}")
+                number = int(input(prompt))
+            is_valid_number = True
+            return number
+        except ValueError:
+            print("Input must be an integer")
+    return number
+
+
+def get_valid_name():
+    name = input("Name: ")
+    while name == "":
+        print("Name cannot be blank")
+        name = input("Name: ")
+    return name
+
+
 def get_valid_date():
     """..."""
     is_valid_date = False
@@ -106,6 +142,8 @@ def get_valid_date():
         try:
             date_string = input("Start date (dd/mm/yyyy): ")
             date = datetime.strptime(date_string, "%d/%m/%Y").date()
+            while date > date.today():
+                print("")
             is_valid_date = True
         except ValueError:
             print("Incorrect date format.")
