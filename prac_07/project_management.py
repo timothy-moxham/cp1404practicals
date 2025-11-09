@@ -1,7 +1,8 @@
 """
-
+CP1404/CP5632 Practical
+Menu-based project management program
 Estimate: 60 minutes
-Actual:
+Actual: around 95-100 minutes
 """
 
 from operator import attrgetter
@@ -19,7 +20,10 @@ DEFAULT_FILE = "projects.txt"
 
 
 def main():
-    """..."""
+    """
+    Load a file of project records, and present a menu of choices to load another file, save projects to a file,
+    display projects, filter projects by date, add a project, or update a specific project.
+    """
     print("Welcome to Pythonic Project Management")
     filename = DEFAULT_FILE
     projects = load_projects(filename)
@@ -58,7 +62,7 @@ def main():
 
 
 def load_projects(file):
-    """..."""
+    """Load file containing records of projects, and process them into a list."""
     with open(file, "r") as in_file:
         in_file.readline()
         projects = []
@@ -71,7 +75,7 @@ def load_projects(file):
 
 
 def save_projects(file, projects):
-    """..."""
+    """Save records of projects to a file."""
     with open(file, "w") as out_file:
         print("Name	Start Date\tPriority\tCost Estimate\tCompletion Percentage", file=out_file)
         for project in projects:
@@ -80,7 +84,7 @@ def save_projects(file, projects):
 
 
 def display_projects(projects):
-    """..."""
+    """Display projects, with categorisation of incomplete and complete projects."""
     incomplete_projects = sorted([project for project in projects if project.completion_percentage != 100])
     print("Incomplete projects:")
     for project in incomplete_projects:
@@ -93,7 +97,7 @@ def display_projects(projects):
 
 
 def filter_projects_by_date(projects):
-    """..."""
+    """Get a date, then display projects that have start dates on or after that date."""
     filter_date = get_valid_date()
     filtered_projects = sorted([project for project in projects if project.start_date >= filter_date],
                                key=attrgetter("start_date"))
@@ -102,7 +106,10 @@ def filter_projects_by_date(projects):
 
 
 def add_new_project(projects):
-    """..."""
+    """
+    Get name, start date, priority, cost estimate, and completion percentage of a new project to add to projects
+    records.
+    """
     name = get_valid_name()
     start_date = get_valid_date()
     priority = get_valid_number("Priority: ", 1, 9)
@@ -113,7 +120,7 @@ def add_new_project(projects):
 
 
 def update_project(projects):
-    """..."""
+    """Update the completion percentage and priority of a given project."""
     for i, project in enumerate(projects):
         print(i, project)
     project_choice = int(input("Project choice: "))
@@ -133,7 +140,7 @@ def update_project(projects):
 
 
 def get_valid_number(prompt, minimum, maximum):
-    """..."""
+    """Get a valid number that is within a minimum and maximum (inclusive)."""
     is_valid_number = False
     while not is_valid_number:
         try:
@@ -149,6 +156,7 @@ def get_valid_number(prompt, minimum, maximum):
 
 
 def get_valid_name():
+    """Get a name of a project that is not blank."""
     name = input("Name: ")
     while name == "":
         print("Name cannot be blank")
@@ -157,14 +165,12 @@ def get_valid_name():
 
 
 def get_valid_date():
-    """..."""
+    """Get a date that is in the 'dd/mm/yyyy' format."""
     is_valid_date = False
     while not is_valid_date:
         try:
             date_string = input("Start date (dd/mm/yyyy): ")
             date = datetime.strptime(date_string, "%d/%m/%Y").date()
-            while date > date.today():
-                print("")
             is_valid_date = True
         except ValueError:
             print("Incorrect date format.")
@@ -172,7 +178,7 @@ def get_valid_date():
 
 
 def get_valid_filename():
-    """..."""
+    """Get a filename and only return if a file of that name exists in the directory."""
     is_valid = False
     while not is_valid:
         try:
