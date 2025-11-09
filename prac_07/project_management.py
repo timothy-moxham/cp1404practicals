@@ -4,6 +4,7 @@ Estimate: 60 minutes
 Actual:
 """
 
+from operator import attrgetter
 from datetime import datetime
 from project import Project
 
@@ -94,8 +95,8 @@ def display_projects(projects):
 def filter_projects_by_date(projects):
     """..."""
     filter_date = get_valid_date()
-    filtered_projects = sorted([project for project in projects if project.start_date >= filter_date])
-
+    filtered_projects = sorted([project for project in projects if project.start_date >= filter_date],
+                               key=attrgetter("start_date"))
     for project in filtered_projects:
         print(project)
 
