@@ -6,6 +6,7 @@ Actual: 6 minutes
 """
 
 CURRENT_YEAR = 2025
+VINTAGE_AGE = 50
 
 
 class Guitar:
@@ -27,4 +28,4 @@ class Guitar:
 
     def is_vintage(self):
         """Determine if a guitar is vintage."""
-        return self.get_age() >= 50
+        return self.get_age() >= VINTAGE_AGE
