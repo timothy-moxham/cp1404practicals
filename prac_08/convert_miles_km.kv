@@ -2,6 +2,7 @@ BoxLayout:
     orientation: 'vertical'
     BoxLayout:
         TextInput:
+            id: input_number
             text: "34"
             size_hint_x: 0.8
         BoxLayout:
@@ -13,6 +14,8 @@ BoxLayout:
                 text: "Down"
     Button:
         text: "Convert m to km"
+        on_press: app.handle_convert(input_number.text)
     Label:
-        text: "54.61756"
+        id: output_label
+        text: ""
         color: (0.95, 0.95, 0.03, 1)
