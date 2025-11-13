@@ -18,5 +18,10 @@ class ConvertMilesApp(App):
         result = float(value) * 1.60934
         self.root.ids.output_label.text = str(result)
 
+    def handle_increment(self, change):
+        result = float(self.root.ids.input_number.text) + change
+        self.root.ids.input_number.text = str(result)
+        self.handle_convert(result)
+
 
 ConvertMilesApp().run()
