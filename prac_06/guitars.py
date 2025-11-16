@@ -17,8 +17,9 @@ def main():
     while name != "":
         year = int(input("Year: "))
         cost = float(input("Cost: $"))
-        guitars.append(Guitar(name, year, cost))
-        print(f"{Guitar(name, year, cost)} added.")
+        guitar = Guitar(name, year, cost)
+        guitars.append(guitar)
+        print(guitar, "added.")
         name = input("Name: ")
 
     print("These are my guitars:")
