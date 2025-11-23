@@ -10,6 +10,7 @@ MENU = "q)uit, c)hoose taxi, d)rive"
 
 def main():
     """"""
+    print("Let's drive!")
     taxis = [Taxi("Prius", 100), SilverServiceTaxi("Limo", 100, 2), SilverServiceTaxi("Hummer", 200, 4)]
     current_taxi = None
     bill = 0
@@ -20,7 +21,10 @@ def main():
         if choice == "c":
             current_taxi = choose_taxi(taxis)
         elif choice == "d":
-            pass
+            if current_taxi is None:
+                print("You need to choose a taxi before you can drive")
+            else:
+                bill += drive_taxi(current_taxi)
         else:
             print("Invalid option")
         print(f"Bill to date: ${bill:.2f}")
@@ -43,6 +47,17 @@ def display_taxis(taxis):
     print("Taxis available:")
     for i, taxi in enumerate(taxis):
         print(f"{i} - {taxi}")
+
+
+def drive_taxi(taxi):
+    distance = int(input("Drive how far? "))
+    if distance > taxi.fuel:
+        distance = taxi.fuel
+    taxi.start_fare()
+    taxi.drive(distance)
+    fare = taxi.get_fare()
+    print(f"Your {taxi.name} will cost you ${fare:.2f}")
+    return fare
 
 
 main()
