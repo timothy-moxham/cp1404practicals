@@ -43,7 +43,7 @@ def choose_taxi(taxis):
     try:
         taxi_choice = int(input("Choose taxi: "))
         return taxis[taxi_choice]
-    except Exception as e:
+    except (ValueError, IndexError):
         print("Invalid taxi choice")
 
 
