@@ -19,6 +19,7 @@ def main():
 
     while choice != "q":
         if choice == "c":
+            print("Taxis available:")
             current_taxi = choose_taxi(taxis)
         elif choice == "d":
             if current_taxi is None:
@@ -30,6 +31,10 @@ def main():
         print(f"Bill to date: ${bill:.2f}")
         print(MENU)
         choice = input(">>> ").lower()
+
+    print(f"Total trip cost: ${bill:.2f}")
+    print("Taxis are now:")
+    display_taxis(taxis)
 
 
 def choose_taxi(taxis):
@@ -44,7 +49,6 @@ def choose_taxi(taxis):
 
 def display_taxis(taxis):
     """"""
-    print("Taxis available:")
     for i, taxi in enumerate(taxis):
         print(f"{i} - {taxi}")
 
