@@ -10,7 +10,7 @@ class SilverServiceTaxi(Taxi):
     """Specialised version of a Taxi class that includes a 'fanciness' attribute and fixed flagfall fee."""
     flagfall = 4.50
 
-    def __init__(self, fanciness, name, fuel):
+    def __init__(self, name, fuel, fanciness):
         """Initialise a SilverServiceTaxi instance, based on parent class Taxi."""
         super().__init__(name, fuel)
         self.fanciness = fanciness
