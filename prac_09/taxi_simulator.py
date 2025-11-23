@@ -20,7 +20,8 @@ def main():
 
     while choice != "q":
         if choice == "c":
-            pass
+            print("Taxis available:")
+            current_taxi = choose_taxi(taxis)
         elif choice == "d":
             pass
         else:
@@ -32,6 +33,22 @@ def main():
     print(f"Total trip cost: ${bill:.2f}")
     print("Taxis are now:")
     display_taxis(taxis)
+
+
+def choose_taxi(taxis):
+    """Get an index for a corresponding list of taxis, and return that taxi in the list."""
+    display_taxis(taxis)
+    try:
+        taxi_choice = int(input("Choose taxi: "))
+        return taxis[taxi_choice]
+    except (ValueError, IndexError):
+        print("Invalid taxi choice")
+
+
+def display_taxis(taxis):
+    """Display each taxi in a list of taxis."""
+    for i, taxi in enumerate(taxis):
+        print(f"{i} - {taxi}")
 
 
 main()
