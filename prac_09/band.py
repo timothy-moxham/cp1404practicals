@@ -20,3 +20,6 @@ class Band:
         """Append a musician to the band musicians list."""
         return self.musicians.append(musician)
 
+    def play(self):
+        """Return string representation of musicians playing."""
+        return "\n".join(f"{musician.play()}" for musician in self.musicians)
