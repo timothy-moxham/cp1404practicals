@@ -23,7 +23,10 @@ def main():
             print("Taxis available:")
             current_taxi = choose_taxi(taxis)
         elif choice == "d":
-            pass
+            if current_taxi is None:
+                print("You need to choose a taxi before you can drive")
+            else:
+                bill += drive_taxi(current_taxi)
         else:
             print("Invalid option")
         print(f"Bill to date: ${bill:.2f}")
@@ -49,6 +52,18 @@ def display_taxis(taxis):
     """Display each taxi in a list of taxis."""
     for i, taxi in enumerate(taxis):
         print(f"{i} - {taxi}")
+
+
+def drive_taxi(taxi):
+    """Get distance to drive taxi, and return the fare of that trip."""
+    distance = int(input("Drive how far? "))
+    if distance > taxi.fuel:
+        distance = taxi.fuel
+    taxi.start_fare()
+    taxi.drive(distance)
+    fare = taxi.get_fare()
+    print(f"Your {taxi.name} will cost you ${fare:.2f}")
+    return fare
 
 
 main()
